@@ -33,9 +33,9 @@ namespace Insomnia.AvatarBot.API.Controllers
         }
 
         [HttpGet("alive")]
-        public async Task<IActionResult> Alive([)
+        public async Task<IActionResult> Alive()
         {
-            Ok("Ты наливаешь воду в")
+            return Ok("Ты наливаешь воду в бутылку она становится бутылкой...");
         }
 
         [HttpPost("callback")]
