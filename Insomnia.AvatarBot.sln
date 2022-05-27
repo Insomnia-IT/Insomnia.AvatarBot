@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insomnia.AvatarBot.API", "Insomnia.AvatarBot\Insomnia.AvatarBot.API\Insomnia.AvatarBot.API.csproj", "{E750D58B-2EF4-4852-B6AA-1BF22D437DBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insomnia.AvatarBot.Data", "Insomnia.AvatarBot\Insomnia.AvatarBot.Data\Insomnia.AvatarBot.Data.csproj", "{9BF0EC92-D72F-4829-9CAB-AC6A413020B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insomnia.AvatarBot.BI", "Insomnia.AvatarBot\Insomnia.AvatarBot.BI\Insomnia.AvatarBot.BI.csproj", "{C5C8B2A1-F8A6-426C-B82C-1C85B846A76E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insomnia.AvatarBot.General", "Insomnia.AvatarBot\Insomnia.AvatarBot.General\Insomnia.AvatarBot.General.csproj", "{9A8DAB56-ABDA-4A1F-895A-7B9026F20F75}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E750D58B-2EF4-4852-B6AA-1BF22D437DBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E750D58B-2EF4-4852-B6AA-1BF22D437DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E750D58B-2EF4-4852-B6AA-1BF22D437DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E750D58B-2EF4-4852-B6AA-1BF22D437DBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BF0EC92-D72F-4829-9CAB-AC6A413020B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BF0EC92-D72F-4829-9CAB-AC6A413020B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BF0EC92-D72F-4829-9CAB-AC6A413020B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BF0EC92-D72F-4829-9CAB-AC6A413020B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5C8B2A1-F8A6-426C-B82C-1C85B846A76E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5C8B2A1-F8A6-426C-B82C-1C85B846A76E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5C8B2A1-F8A6-426C-B82C-1C85B846A76E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5C8B2A1-F8A6-426C-B82C-1C85B846A76E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A8DAB56-ABDA-4A1F-895A-7B9026F20F75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A8DAB56-ABDA-4A1F-895A-7B9026F20F75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A8DAB56-ABDA-4A1F-895A-7B9026F20F75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A8DAB56-ABDA-4A1F-895A-7B9026F20F75}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA955E86-B353-438B-B921-AFC47701F74E}
+	EndGlobalSection
+EndGlobal
