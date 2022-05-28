@@ -10,9 +10,9 @@ COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.API/Insomnia.AvatarBot.API.csproj",
 COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.BI/Insomnia.AvatarBot.BI.csproj", "Insomnia.AvatarBot.API/Insomnia.AvatarBot.BI/"]
 COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.Data/Insomnia.AvatarBot.Data.csproj", "Insomnia.AvatarBot.API/Insomnia.AvatarBot.Data/"]
 COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.General/Insomnia.AvatarBot.General.csproj", "Insomnia.AvatarBot.API/Insomnia.AvatarBot.General/"]
-RUN dotnet restore "Insomnia.AvatarBot.API/Insomnia.AvatarBot.API/Insomnia.AvatarBot.API.csproj"
+RUN dotnet restore "Insomnia.AvatarBot/Insomnia.AvatarBot.API/Insomnia.AvatarBot.API.csproj"
 COPY . .
-WORKDIR "/src/Insomnia.AvatarBot.API/Insomnia.AvatarBot.API/"
+WORKDIR "/src/Insomnia.AvatarBot/Insomnia.AvatarBot.API"
 RUN dotnet build "Insomnia.AvatarBot.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
