@@ -3,13 +3,14 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.API/Insomnia.AvatarBot.API.csproj", "Insomnia.AvatarBot.API/Insomnia.AvatarBot.API/"]
-COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.BI/Insomnia.AvatarBot.BI.csproj", "Insomnia.AvatarBot.API/Insomnia.AvatarBot.BI/"]
-COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.Data/Insomnia.AvatarBot.Data.csproj", "Insomnia.AvatarBot.API/Insomnia.AvatarBot.Data/"]
-COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.General/Insomnia.AvatarBot.General.csproj", "Insomnia.AvatarBot.API/Insomnia.AvatarBot.General/"]
+COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.API/Insomnia.AvatarBot.API.csproj", "Insomnia.AvatarBot/Insomnia.AvatarBot.API/"]
+COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.BI/Insomnia.AvatarBot.BI.csproj", "Insomnia.AvatarBot/Insomnia.AvatarBot.BI/"]
+COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.General/Insomnia.AvatarBot.General.csproj", "Insomnia.AvatarBot/Insomnia.AvatarBot.General/"]
+COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.Data/Insomnia.AvatarBot.Data.csproj", "Insomnia.AvatarBot/Insomnia.AvatarBot.Data/"]
 RUN dotnet restore "Insomnia.AvatarBot/Insomnia.AvatarBot.API/Insomnia.AvatarBot.API.csproj"
 COPY . .
 WORKDIR "/src/Insomnia.AvatarBot/Insomnia.AvatarBot.API"
