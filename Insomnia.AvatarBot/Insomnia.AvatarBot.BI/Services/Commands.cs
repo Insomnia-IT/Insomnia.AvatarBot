@@ -8,5 +8,8 @@ namespace Insomnia.AvatarBot.BI.Services
 {
     public class Commands
     {
+        public Commands() { }
+
+       // public async Task 
     }
 }

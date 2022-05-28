@@ -8,6 +8,6 @@ namespace Insomnia.AvatarBot.BI.Options
 {
     public class Config
     {
-
+        public BotConfig Bot { get; set; }
     }
 }
