@@ -90,6 +90,8 @@ namespace Insomnia.AvatarBot.API
             {
                 endpoints.MapControllers();
             });
+
+            app.UseStaticFiles();
         }
     }
 }
