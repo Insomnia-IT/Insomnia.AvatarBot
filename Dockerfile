@@ -23,3 +23,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Insomnia.AvatarBot.API.dll"]
+
+FROM busybox:latest
+COPY Insomnia_frames_21-05/* /Insomnia_frames_21-05/
+ENTRYPOINT [ "cp", "-r", "/Insomnia_frames_21-05/", "/shared" ]
