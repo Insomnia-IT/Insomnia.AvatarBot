@@ -4,6 +4,8 @@ using Divergic.Configuration.Autofac;
 using Insomnia.AvatarBot.API.Configurations.AutoMapper;
 using Insomnia.AvatarBot.BI.Options;
 using System;
+using Insomnia.AvatarBot.BI.Interfaces;
+using Insomnia.AvatarBot.BI.Services;
 
 namespace Insomnia.AvatarBot.API.Configurations.Autofac
 {
@@ -13,8 +15,8 @@ namespace Insomnia.AvatarBot.API.Configurations.Autofac
         {
             base.Load(builder);
 
-            //    builder.RegisterType<Class>()
-            //        .As<Interface>();
+                builder.RegisterType<Commands>()
+                    .As<ICommands>();
 
             builder.Register(context => new MapperConfiguration(cfg =>
             {

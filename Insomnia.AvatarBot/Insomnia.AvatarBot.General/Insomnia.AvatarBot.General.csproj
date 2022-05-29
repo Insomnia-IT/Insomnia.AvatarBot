@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Insomnia.AvatarBot.Data\Insomnia.AvatarBot.Data.csproj" ReplaceParameters="true"/>
+    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Insomnia.AvatarBot.Data\Insomnia.AvatarBot.Data.csproj" ReplaceParameters="true" />
   </ItemGroup>
 
 </Project>

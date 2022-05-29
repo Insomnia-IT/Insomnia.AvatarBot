@@ -8,16 +8,14 @@
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Collection.EntityFrameworkCore" Version="7.0.1" />
     <PackageReference Include="DelegateDecompiler.EntityFrameworkCore5" Version="0.29.1" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Abstractions" Version="6.0.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.2" />
     <PackageReference Include="VkNet" Version="1.69.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Insomnia.AvatarBot.Data\Insomnia.AvatarBot.Data.csproj" ReplaceParameters="true" />
     <ProjectReference Include="..\Insomnia.AvatarBot.General\Insomnia.AvatarBot.General.csproj" ReplaceParameters="true" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
   </ItemGroup>
 
 </Project>
