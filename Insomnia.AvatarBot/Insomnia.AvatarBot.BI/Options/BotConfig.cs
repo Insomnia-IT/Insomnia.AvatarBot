@@ -8,10 +8,10 @@ namespace Insomnia.AvatarBot.BI.Options
 {
     public class BotConfig
     {
-        public string Token { get; set; }
+        public string Token => "";
 
-        public string SecretKey { get; set; }
+        public string SecretKey => "keykeykeykeykeykeyekeyekyekyekyekeyekyekye";
 
-        public string Confirmation { get; set; }
+        public string Confirmation => "3cec30f2";
     }
 }

@@ -39,11 +39,11 @@ namespace Insomnia.AvatarBot.API.Controllers
         private readonly ICommands _commands;
         private readonly IVkApi _vkApi;
 
-        public VkController(ILogger<VkController> logger, IMapper mapper, BotConfig config, ICommands commands)
+        public VkController(ILogger<VkController> logger, IMapper mapper, ICommands commands)
         {
             _logger = logger;
             _mapper = mapper;
-            _config = config;
+            _config = new BotConfig();
             _commands = commands;
             _vkApi = new VkApi();
             _vkApi.Authorize(new ApiAuthParams { AccessToken = "c5a27bf0e24ae3aeed24b82cfd1c78fc883d2d670faa1951586431ddaf2e3144edd8ebd24f0681daea4fb" });
