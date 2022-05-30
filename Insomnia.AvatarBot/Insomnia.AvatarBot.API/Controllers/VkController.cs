@@ -31,7 +31,7 @@ namespace Insomnia.AvatarBot.API.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
-    public class VkController : BaseController
+    public class VkController : ControllerBase
     {
         private readonly ILogger<VkController> _logger;
         private readonly IMapper _mapper;
