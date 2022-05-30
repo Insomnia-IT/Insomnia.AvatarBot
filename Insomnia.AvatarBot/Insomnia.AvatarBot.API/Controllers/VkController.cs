@@ -26,6 +26,7 @@ using System.Text;
 using System.Net;
 using VkNet;
 using VkNet.Enums.SafetyEnums;
+using System.Net.Http;
 
 namespace Insomnia.AvatarBot.API.Controllers
 {
@@ -177,7 +178,7 @@ namespace Insomnia.AvatarBot.API.Controllers
                 {
                     var photo = await _commands.GenerateImage(history.Url, history.Number);
 
-                    if (photo is null)
+                    if (photo is null || photo.Length == 0)
                         return SendMessage("О нет! Что-то пошло не так. Наши специалисты уже разбираются. Попробуйте загрузить фото позднее.", msg.PeerId.Value);
 
                     Messages.Remove(history);
@@ -225,7 +226,7 @@ namespace Insomnia.AvatarBot.API.Controllers
                 Message = message
             });
 
-            return Ok();
+            return Default();
         }
 
         private async Task<IActionResult> SendMessage(Stream photo, long peerId, long groupId)
@@ -236,11 +237,20 @@ namespace Insomnia.AvatarBot.API.Controllers
         private async Task<IEnumerable<VkNet.Model.Attachments.MediaAttachment>> UploadImage(Stream photo, long groupId)
         {
             var uploadServer = await _vkApi.Photo.GetMessagesUploadServerAsync(groupId);
-            var wc = new WebClient();
 
-            var result = Encoding.ASCII.GetString(wc.UploadData(uploadServer.UploadUrl, (photo as MemoryStream).ToArray()));
+            HttpClient httpClient = new HttpClient();
+            MultipartFormDataContent form = new MultipartFormDataContent();
 
-            return _vkApi.Photo.SaveMessagesPhoto(result);
+            var bytes = (photo as MemoryStream).ToArray();
+
+            form.Add(new ByteArrayContent(bytes, 0, bytes.Length), "file1", "photo.jpg");
+            HttpResponseMessage response = await httpClient.PostAsync(uploadServer.UploadUrl, form);
+
+            response.EnsureSuccessStatusCode();
+            httpClient.Dispose();
+            string sd = await response.Content.ReadAsStringAsync();
+
+            return _vkApi.Photo.SaveMessagesPhoto(sd);
         }
 
         private IActionResult SendMessage(string message, IEnumerable<VkNet.Model.Attachments.MediaAttachment> attachments, long peerId)
