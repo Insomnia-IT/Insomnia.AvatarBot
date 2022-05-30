@@ -65,7 +65,7 @@ namespace Insomnia.AvatarBot.API.Controllers
                 return await CheckCommand(model);
             }
 
-            return Ok();
+            return Default();
         }
 
         [HttpPost("generate-image")]
@@ -171,7 +171,7 @@ namespace Insomnia.AvatarBot.API.Controllers
             else
             {
                 if ((DateTime.Now - history.TimeLastCreate).TotalSeconds < 3)
-                    return Ok();
+                    return Default();
 
                 else
                 {
@@ -203,7 +203,7 @@ namespace Insomnia.AvatarBot.API.Controllers
                 SendMessage($"fromId {fId}, pearId {pId}", fId);
             if(pId != 0)
                 SendMessage($"pearId {pId}, fromId {fId}", pId);
-            return Ok();
+            return Default();
         }
 
         private IActionResult Confirmation()
@@ -253,7 +253,7 @@ namespace Insomnia.AvatarBot.API.Controllers
                 Attachments = attachments
             });
 
-            return Ok();
+            return Default();
         }
 
         private IActionResult SendMessage(IEnumerable<VkNet.Model.Attachments.MediaAttachment> attachments, long peerId)
@@ -265,7 +265,7 @@ namespace Insomnia.AvatarBot.API.Controllers
                 Attachments = attachments
             });
 
-            return Ok();
+            return Default();
         }
     }
 }
