@@ -101,7 +101,7 @@ namespace Insomnia.AvatarBot.API.Controllers
         {
             var msg = Message.FromJson(new VkResponse(message));
 
-            if (!msg.UserId.HasValue)
+            if (!msg.FromId.HasValue)
                 return Default();
 
             switch (msg.Text.ToLower())
