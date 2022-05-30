@@ -47,7 +47,7 @@ namespace Insomnia.AvatarBot.API.Controllers
             _config = new BotConfig();
             _commands = commands;
             _vkApi = new VkApi();
-            _vkApi.Authorize(new ApiAuthParams { AccessToken = "3d671bdde5f1a80123bfc78972f58cebc5b4a5e57cc4798d6495ee8a2f3809a47148fc01e17b9a6e98d3b" });
+            _vkApi.Authorize(new ApiAuthParams { AccessToken = "85f1696dea16109271e3aa6fca5d90d849578ef527797964cc859fb819e6a6fbf61622fc49dd4bf6a7dab" });
         }
 
         private static List<BotHistory> Messages = new List<BotHistory>();
@@ -83,6 +83,12 @@ namespace Insomnia.AvatarBot.API.Controllers
             var result = await _commands.GenerateImage(url, number);
 
             return GetFile(result);
+        }
+
+        [HttpPost("upload-image")]
+        public async Task<IActionResult> UploadImageToServer(IFormFile file)
+        {
+            return Ok(await UploadToVk(file.OpenReadStream(), 209335843));
         }
 
         private IActionResult GetFile(Stream file)
@@ -197,13 +203,6 @@ namespace Insomnia.AvatarBot.API.Controllers
                   OwnerId = _vkApi.UserId.Value
               });
             */
-            var pId = pearId.HasValue ? pearId.Value : 0;
-            var fId = fromId.HasValue ? fromId.Value : 0; 
-
-            if(fId != 0)
-                SendMessage($"fromId {fId}, pearId {pId}", fId);
-            if(pId != 0)
-                SendMessage($"pearId {pId}, fromId {fId}", pId);
             return Default();
         }
 
@@ -236,21 +235,40 @@ namespace Insomnia.AvatarBot.API.Controllers
 
         private async Task<IEnumerable<VkNet.Model.Attachments.MediaAttachment>> UploadImage(Stream photo, long groupId)
         {
+            return _vkApi.Photo.SaveMessagesPhoto(await UploadToVk(photo, groupId));
+        }
+
+        private async Task<string> UploadToVk(Stream photo, long groupId)
+        {
             var uploadServer = await _vkApi.Photo.GetMessagesUploadServerAsync(groupId);
 
             HttpClient httpClient = new HttpClient();
             MultipartFormDataContent form = new MultipartFormDataContent();
 
-            var bytes = (photo as MemoryStream).ToArray();
+            //{Microsoft.AspNetCore.Http.ReferenceReadStream}
+
+            var bytes = (photo is MemoryStream) ? (photo as MemoryStream).ToArray() : StreamToMemoryStream(photo);
 
             form.Add(new ByteArrayContent(bytes, 0, bytes.Length), "file1", "photo.jpg");
             HttpResponseMessage response = await httpClient.PostAsync(uploadServer.UploadUrl, form);
 
             response.EnsureSuccessStatusCode();
             httpClient.Dispose();
-            string sd = await response.Content.ReadAsStringAsync();
+            return await response.Content.ReadAsStringAsync();
+        }
 
-            return _vkApi.Photo.SaveMessagesPhoto(sd);
+        private byte[] StreamToMemoryStream(Stream st)
+        {
+            var output = new MemoryStream();
+
+            byte[] buffer = new byte[16 * 1024];
+            int read;
+            while ((read = st.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                output.Write(buffer, 0, read);
+            }
+
+            return output.ToArray();
         }
 
         private IActionResult SendMessage(string message, IEnumerable<VkNet.Model.Attachments.MediaAttachment> attachments, long peerId)

@@ -62,10 +62,11 @@ namespace Insomnia.AvatarBot.General.Expansions
         private static string GetDirection(int absoluteSize) =>
             absoluteSize switch
             {
-                420 => "400-400",
+                400 => "400-400",
                 720 => "720-720",
                 853 => "853-853",
-                1280 => "1280-1280"
+                1280 => "1280-1280",
+                _ => "400-400"
             };
 
         private static string GetFileName(int number) => $"{number}.png";
