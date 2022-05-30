@@ -11,7 +11,8 @@ COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.API/Insomnia.AvatarBot.API.csproj",
 COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.BI/Insomnia.AvatarBot.BI.csproj", "Insomnia.AvatarBot/Insomnia.AvatarBot.BI/"]
 COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.General/Insomnia.AvatarBot.General.csproj", "Insomnia.AvatarBot/Insomnia.AvatarBot.General/"]
 COPY ["Insomnia.AvatarBot/Insomnia.AvatarBot.Data/Insomnia.AvatarBot.Data.csproj", "Insomnia.AvatarBot/Insomnia.AvatarBot.Data/"]
-COPY ["Insomnia_frames_21-05", "/Insomnia_frames_21-05/"]
+COPY ./Insomnia_frames_21-05/ Insomnia_frames_21-05/
+
 
 RUN dotnet restore "Insomnia.AvatarBot/Insomnia.AvatarBot.API/Insomnia.AvatarBot.API.csproj"
 COPY . .
