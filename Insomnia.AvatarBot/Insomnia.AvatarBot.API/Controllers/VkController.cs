@@ -46,7 +46,7 @@ namespace Insomnia.AvatarBot.API.Controllers
             _config = new BotConfig();
             _commands = commands;
             _vkApi = new VkApi();
-            _vkApi.Authorize(new ApiAuthParams { AccessToken = "3773b3b925fda2de1a9dc91aa77c303da78bf757048567f006786552b9cede02fd72998a3f85fb7a32013" });
+            _vkApi.Authorize(new ApiAuthParams { AccessToken = "3d671bdde5f1a80123bfc78972f58cebc5b4a5e57cc4798d6495ee8a2f3809a47148fc01e17b9a6e98d3b" });
         }
 
         private static List<BotHistory> Messages = new List<BotHistory>();
@@ -144,7 +144,14 @@ namespace Insomnia.AvatarBot.API.Controllers
             }
 
             if (!String.IsNullOrEmpty(msg.Text))
-                history.Number = int.Parse(msg.Text);
+            {
+                if (int.TryParse(msg.Text, out var number) && number > 0 && number <= 10)
+                {
+                    history.Number = number;
+                }
+                else
+                    return Default();
+            }
             else
                 history.Url = (msg.Attachments.First().Instance as VkNet.Model.Attachments.Photo).Sizes.OrderByDescending(x => x.Height).First().Url.AbsoluteUri;
 
@@ -155,6 +162,11 @@ namespace Insomnia.AvatarBot.API.Controllers
 
 Учтите: фотография будет обрезана по центру!
 А так же не советуем отправлять маленькие изображения, иначе они будут некрасиво растянуты.", msg.FromId.Value);
+            }
+            else if(history.Number == 0)
+            {
+                return SendMessage(@$"Круто! Почти готово! Скоро будет сгенерирована крутейшая аватарка! Осталось только отправить номер рамки :)
+Что бы посмотреть все варианты рамок, введите ""показать шаблоны"" или ""хочу крутую аватарку""!", msg.FromId.Value);
             }
             else
             {
