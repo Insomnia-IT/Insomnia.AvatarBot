@@ -56,7 +56,7 @@ namespace Insomnia.AvatarBot.General.Expansions
 
         private static string GetFramePath(int absoluteSize, int number)
         {
-            return @$"C:\Users\jwpla\source\repos\Insomnia.AvatarBot\Insomnia.AvatarBot\Insomnia.AvatarBot.API\Insomnia_frames_21-05\{GetDirection(absoluteSize)}\{GetFileName(number)}";
+            return @$"Insomnia_frames_21-05/{GetDirection(absoluteSize)}/{GetFileName(number)}";
         }
 
         private static string GetDirection(int absoluteSize) =>
