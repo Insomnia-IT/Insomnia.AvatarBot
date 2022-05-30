@@ -213,7 +213,7 @@ namespace Insomnia.AvatarBot.API.Controllers
 
         private IActionResult Default()
         {
-            return Ok();
+            return Ok("ok");
         }
 
         private IActionResult SendMessage(string message, long peerId)
