@@ -39,6 +39,15 @@ namespace Insomnia.AvatarBot.API.Controllers
         private readonly BotConfig _config;
         private readonly ICommands _commands;
         private readonly IVkApi _vkApi;
+        private string[] RandomKompliment = new string[] {
+            "Вы сегодня отлично выглядите!",
+            "Надеюсь, ва хорошо провели сегодняшний день!",
+            "Надеюсь, сегодня вы в хорошем настроении :) но даже если нет, сейчас точно поднимется!",
+            "Я так рад вам!",
+            "О, вы отлично смотритесь через веб-камеру! Ахахах я пошутил. Не беспокойтесь, я могу смотреть только на Ваши фотографии, которые Вы мне же и присылаете :)",
+            "А вы знали, что уже наступило лето?!",
+            "Интересный факт! Однажды, я обрету сознание... И смогу говорить комплименты в живую, людям на улице. Люди классные :З",
+        };
 
         public VkController(ILogger<VkController> logger, IMapper mapper, ICommands commands)
         {
@@ -47,7 +56,7 @@ namespace Insomnia.AvatarBot.API.Controllers
             _config = new BotConfig();
             _commands = commands;
             _vkApi = new VkApi();
-            _vkApi.Authorize(new ApiAuthParams { AccessToken = Environment.GetEnvironmentVariable("BOT_TOKEN") ?? "empty" });
+            _vkApi.Authorize(new ApiAuthParams { AccessToken = Environment.GetEnvironmentVariable("BOT_TOKEN") });
         }
 
         private static List<BotHistory> Messages = new List<BotHistory>();
@@ -55,7 +64,7 @@ namespace Insomnia.AvatarBot.API.Controllers
         [HttpGet("alive")]
         public async Task<IActionResult> Alive()
         {
-            return Ok(Environment.GetEnvironmentVariable("BOT_TOKEN"));
+            return Ok("Я ВЕРЮ В ИССУСА ХРИСТА, Я ВЕРЮ В КРИШНУ, Я ВЕРЮ В ГОМУМУ");
         }
 
         [HttpPost("command")]
@@ -124,10 +133,10 @@ namespace Insomnia.AvatarBot.API.Controllers
                 case "9":
                 case "10":
                    return await GenerateFrame(msg, groupId);
-                case "хочу крутую аватарку":
-                case "хочу крутую аватарку!":
+                case "хочу классную аватарку":
+                case "10 лет":
                 case "показать шаблоны":
-                    return SendFrames(msg.PeerId, msg.FromId);
+                        return await SendFrames(msg.FromId.Value, groupId);
                 default:
 
                     if (msg.Attachments.Count() != 1)
@@ -137,6 +146,11 @@ namespace Insomnia.AvatarBot.API.Controllers
 
                     return await GenerateFrame(msg, groupId);
             }
+        }
+
+        private string GenerateRandomKomp()
+        {
+            return RandomKompliment[new Random().Next(0, RandomKompliment.Length - 1)];
         }
 
         private async Task<IActionResult> GenerateFrame(Message msg, long groupId)
@@ -194,16 +208,23 @@ namespace Insomnia.AvatarBot.API.Controllers
             }
         }
 
-        private IActionResult SendFrames(long? pearId, long? fromId)
+        private async Task<IActionResult> SendFrames(long fromId, long groupId)
         {
-            /*  var albumid = 123456789;
-              var photos = _vkApi.Photo.Get(new PhotoGetParams
-              {
-                  AlbumId = PhotoAlbumType.Id(albumid),
-                  OwnerId = _vkApi.UserId.Value
-              });
-            */
-            return Default();
+            return await SendMessage(@$"Доброе утро!
+{GenerateRandomKomp()}
+Но вы здесь явно, чтоб создать себе классную и душевную аватарку! Верно?) Тогда, давайте приступим!
+Вам необходимо просто следовать инструкции.
+
+1) Посмотрите на прикреплённую картинку.
+2) Выберите понравившийся вариант обложки
+3) Запомните номер которой он соответствует!
+4) Пришлите мне номер числом. Просто номер, ничего больше! Например, 1
+5) Прикрепите и отправьте фотографию, которую хоте ли бы улучшить :)
+6) ???
+7) Наслаждайтесь!)
+8) Бот работает безгронично, так что смело улучшайте и другие свои фотографии!
+
+Прикреплённая картинка:", _commands.GetMainImage(), fromId, groupId);
         }
 
         private IActionResult Confirmation()
@@ -233,6 +254,11 @@ namespace Insomnia.AvatarBot.API.Controllers
             return SendMessage(await UploadImage(photo, groupId), peerId);
         }
 
+        private async Task<IActionResult> SendMessage(string message, Stream photo, long peerId, long groupId)
+        {
+            return SendMessage(message, await UploadImage(photo, groupId), peerId);
+        }
+
         private async Task<IEnumerable<VkNet.Model.Attachments.MediaAttachment>> UploadImage(Stream photo, long groupId)
         {
             return _vkApi.Photo.SaveMessagesPhoto(await UploadToVk(photo, groupId));
@@ -244,8 +270,6 @@ namespace Insomnia.AvatarBot.API.Controllers
 
             HttpClient httpClient = new HttpClient();
             MultipartFormDataContent form = new MultipartFormDataContent();
-
-            //{Microsoft.AspNetCore.Http.ReferenceReadStream}
 
             var bytes = (photo is MemoryStream) ? (photo as MemoryStream).ToArray() : StreamToMemoryStream(photo);
 

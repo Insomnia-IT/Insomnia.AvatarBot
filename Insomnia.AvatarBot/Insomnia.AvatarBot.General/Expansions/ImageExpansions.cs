@@ -54,10 +54,13 @@ namespace Insomnia.AvatarBot.General.Expansions
             }
         }
 
-        private static string GetFramePath(int absoluteSize, int number)
-        {
-            return @$"Insomnia_frames_21-05/{GetDirection(absoluteSize)}/{GetFileName(number)}";
-        }
+        public static string GetMainImagePath() => GetPath(null, GetMainImage());
+
+        private static string GetFramePath(int absoluteSize, int number) =>
+            GetPath(GetDirection(absoluteSize), GetFileName(number));
+
+        private static string GetPath(string description, string file) =>
+            @$"Insomnia_frames_21-05{(String.IsNullOrEmpty(description) ? "" : $"/{description}")}/{file}";
 
         private static string GetDirection(int absoluteSize) =>
             absoluteSize switch
@@ -70,5 +73,7 @@ namespace Insomnia.AvatarBot.General.Expansions
             };
 
         private static string GetFileName(int number) => $"{number}.png";
+
+        private static string GetMainImage() => "insomnia_post_vk.jpg";
     }
 }

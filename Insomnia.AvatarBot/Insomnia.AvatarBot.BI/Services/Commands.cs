@@ -58,5 +58,13 @@ namespace Insomnia.AvatarBot.BI.Services
 
             return outputStream;
         }
+
+        public Stream GetMainImage()
+        {
+            using (var stream = File.OpenRead(ImageExpansions.GetMainImagePath()))
+            {
+                return stream;
+            }
+        }
     }
 }
