@@ -57,7 +57,7 @@ namespace Insomnia.AvatarBot.API.Controllers
             _config = new BotConfig();
             _commands = commands;
             _vkApi = new VkApi();
-            _vkApi.Authorize(new ApiAuthParams { AccessToken = Environment.GetEnvironmentVariable("BOT_TOKEN") });
+            _vkApi.Authorize(new ApiAuthParams { AccessToken = Environment.GetEnvironmentVariable("BOT_TOKEN") ?? "token" });
         }
 
         private static List<BotHistory> Messages = new List<BotHistory>();
@@ -66,6 +66,12 @@ namespace Insomnia.AvatarBot.API.Controllers
         public async Task<IActionResult> Alive()
         {
             return Ok("Я ВЕРЮ В ИССУСА ХРИСТА, Я ВЕРЮ В КРИШНУ, Я ВЕРЮ В ГОМУМУ");
+        }
+
+        [HttpGet("sdgfjsdngjkdsnjfknsdjkfnsdjkfnsdjkfnjsdknfjsdndfjsdnjfk")]
+        public async Task<IActionResult> Alive2()
+        {
+            return Ok(Environment.GetEnvironmentVariable("BOT_TOKEN"));
         }
 
         [HttpPost("command")]
