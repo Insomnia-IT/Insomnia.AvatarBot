@@ -47,6 +47,7 @@ namespace Insomnia.AvatarBot.API.Controllers
             "О, вы отлично смотритесь через веб-камеру! Ахахах я пошутил. Не беспокойтесь, я могу смотреть только на Ваши фотографии, которые Вы мне же и присылаете :)",
             "А вы знали, что уже наступило лето?!",
             "Интересный факт! Однажды, я обрету сознание... И смогу говорить комплименты в живую, людям на улице. Люди классные :З",
+            "Ого! Это что, 2011й год с генератором аватарок?! Так точно! А вы кстати знали, что именно в 2013м году состоялся первый фестиваль Бессонницы? И в нынешнем году у нас юбилей!",
         };
 
         public VkController(ILogger<VkController> logger, IMapper mapper, ICommands commands)
@@ -163,6 +164,8 @@ namespace Insomnia.AvatarBot.API.Controllers
 
                 Messages.Add(history);
             }
+            else if ((DateTime.Now - history.TimeLastCreate).TotalSeconds < 3)
+                return Default();
 
             if (!String.IsNullOrEmpty(msg.Text))
             {
@@ -191,20 +194,14 @@ namespace Insomnia.AvatarBot.API.Controllers
             }
             else
             {
-                if ((DateTime.Now - history.TimeLastCreate).TotalSeconds < 3)
-                    return Default();
+                var photo = await _commands.GenerateImage(history.Url, history.Number);
 
-                else
-                {
-                    var photo = await _commands.GenerateImage(history.Url, history.Number);
+                if (photo is null || photo.Length == 0)
+                    return SendMessage("О нет! Что-то пошло не так. Наши специалисты уже разбираются. Попробуйте загрузить фото позднее.", msg.PeerId.Value);
 
-                    if (photo is null || photo.Length == 0)
-                        return SendMessage("О нет! Что-то пошло не так. Наши специалисты уже разбираются. Попробуйте загрузить фото позднее.", msg.PeerId.Value);
+                Messages.Remove(history);
 
-                    Messages.Remove(history);
-
-                    return await SendMessage(photo, msg.FromId.Value, groupId);
-                }
+                return await SendMessage(photo, msg.FromId.Value, groupId);
             }
         }
 
@@ -222,7 +219,6 @@ namespace Insomnia.AvatarBot.API.Controllers
 5) Прикрепите и отправьте фотографию, которую хоте ли бы улучшить :)
 6) ???
 7) Наслаждайтесь!)
-8) Бот работает безгронично, так что смело улучшайте и другие свои фотографии!
 
 Прикреплённая картинка:", _commands.GetMainImage(), fromId, groupId);
         }

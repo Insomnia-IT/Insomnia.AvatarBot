@@ -12,6 +12,6 @@ namespace Insomnia.AvatarBot.BI.Options
 
         public string SecretKey => "keykeykeykeykeykeyekeyekyekyekyekeyekyekye";
 
-        public string Confirmation => "c3201ec7";
+        public string Confirmation => "888ae533";
     }
 }
