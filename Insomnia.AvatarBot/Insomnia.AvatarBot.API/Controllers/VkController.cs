@@ -47,7 +47,7 @@ namespace Insomnia.AvatarBot.API.Controllers
             _config = new BotConfig();
             _commands = commands;
             _vkApi = new VkApi();
-            _vkApi.Authorize(new ApiAuthParams { AccessToken = Environment.GetEnvironmentVariable("BOT_TOKEN") });
+            _vkApi.Authorize(new ApiAuthParams { AccessToken = Environment.GetEnvironmentVariable("BOT_TOKEN") ?? "empty" });
         }
 
         private static List<BotHistory> Messages = new List<BotHistory>();
