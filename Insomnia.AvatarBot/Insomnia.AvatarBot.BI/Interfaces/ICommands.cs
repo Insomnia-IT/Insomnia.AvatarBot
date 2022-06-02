@@ -15,5 +15,7 @@ namespace Insomnia.AvatarBot.BI.Interfaces
         Task<Stream> GenerateImage(string url, int number);
 
         Task<Stream> GenerateImageToStream(IFormFile file, int number);
+
+        Stream GetMainImage();
     }
 }
