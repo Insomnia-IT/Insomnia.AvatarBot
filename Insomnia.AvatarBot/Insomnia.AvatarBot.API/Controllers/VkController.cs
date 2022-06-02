@@ -68,12 +68,6 @@ namespace Insomnia.AvatarBot.API.Controllers
             return Ok("Я ВЕРЮ В ИССУСА ХРИСТА, Я ВЕРЮ В КРИШНУ, Я ВЕРЮ В ГОМУМУ");
         }
 
-        [HttpGet("sdgfjsdngjkdsnjfknsdjkfnsdjkfnsdjkfnjsdknfjsdndfjsdnjfk")]
-        public async Task<IActionResult> Alive2()
-        {
-            return Ok(Environment.GetEnvironmentVariable("BOT_TOKEN"));
-        }
-
         [HttpPost("command")]
         public async Task<IActionResult> Command([FromBody] Updates model)
         {
