@@ -57,7 +57,7 @@ namespace Insomnia.AvatarBot.API.Controllers
             _config = new BotConfig();
             _commands = commands;
             _vkApi = new VkApi();
-            _vkApi.Authorize(new ApiAuthParams { AccessToken = Environment.GetEnvironmentVariable("BOT_TOKEN") ?? "token" });
+            _vkApi.Authorize(new ApiAuthParams { AccessToken = Environment.GetEnvironmentVariable("BOT_TOKEN") });
         }
 
         private static List<BotHistory> Messages = new List<BotHistory>();
@@ -273,7 +273,18 @@ namespace Insomnia.AvatarBot.API.Controllers
             HttpClient httpClient = new HttpClient();
             MultipartFormDataContent form = new MultipartFormDataContent();
 
-            var bytes = (photo is MemoryStream) ? (photo as MemoryStream).ToArray() : StreamToMemoryStream(photo);
+            byte[] bytes;
+
+            if (photo is FileStream)
+            {
+                bytes = new byte[photo.Length];
+
+                photo.Read(bytes, 0, bytes.Length);
+            }
+            else if ((photo is MemoryStream))
+                bytes = (photo as MemoryStream).ToArray();
+            else
+                bytes = StreamToMemoryStream(photo);
 
             form.Add(new ByteArrayContent(bytes, 0, bytes.Length), "file1", "photo.jpg");
             HttpResponseMessage response = await httpClient.PostAsync(uploadServer.UploadUrl, form);

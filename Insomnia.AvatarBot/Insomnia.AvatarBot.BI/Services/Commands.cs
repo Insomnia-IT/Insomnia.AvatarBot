@@ -61,10 +61,16 @@ namespace Insomnia.AvatarBot.BI.Services
 
         public Stream GetMainImage()
         {
-            using (var stream = File.OpenRead(ImageExpansions.GetMainImagePath()))
+            var ms = new MemoryStream();
+
+            using (var stream = File.Open(ImageExpansions.GetMainImagePath(), FileMode.Open))
             {
-                return stream;
+                stream.CopyTo(ms);
             }
+
+            ms.Seek(0, SeekOrigin.Begin);
+
+            return ms;
         }
     }
 }
