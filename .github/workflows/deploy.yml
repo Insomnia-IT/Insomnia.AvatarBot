@@ -19,11 +19,8 @@ jobs:
     - name: stop
       run: docker rm -f $IMAGE_NAME
     - name: run
-      run: docker run -d -p 5656:80 --network=apps --restart=always --name $IMAGE_NAME $IMAGE_NAME:$GITHUB_SHA
+      run: docker run -d -p 5656:80 --network=apps --restart=always --env BOT_TOKEN=$BOT_TOKEN --name $IMAGE_NAME $IMAGE_NAME:$GITHUB_SHA
     - name: cleanup docker containers
       run: docker container prune --filter "until=30m" -f
     - name: cleanup docker images
       run: docker image prune -a -f --filter "until=30m"
-    - name: echo bot_token
-      run: |
-          echo $BOT_TOKEN
