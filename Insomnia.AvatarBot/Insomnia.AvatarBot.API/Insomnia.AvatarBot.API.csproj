@@ -147,6 +147,9 @@
 	<None Update="Insomnia_frames_21-05\853-853\9.png">
 		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</None>
+	<None Update="Insomnia_frames_21-05\insomnia_bot_picture.jpg">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
 	<None Update="Insomnia_frames_21-05\insomnia_post_vk.jpg">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</None>

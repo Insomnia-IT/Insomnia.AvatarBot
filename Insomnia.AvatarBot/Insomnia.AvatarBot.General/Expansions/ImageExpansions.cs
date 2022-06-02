@@ -74,6 +74,6 @@ namespace Insomnia.AvatarBot.General.Expansions
 
         private static string GetFileName(int number) => $"{number}.png";
 
-        private static string GetMainImage() => "insomnia_post_vk.jpg";
+        private static string GetMainImage() => "insomnia_bot_picture.jpg";
     }
 }
