@@ -23,6 +23,5 @@ RUN dotnet publish "Insomnia.AvatarBot.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
-ENV BOT_TOKEN=${{ secrets.BOT_TOKEN }}
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Insomnia.AvatarBot.API.dll"]
