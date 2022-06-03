@@ -134,8 +134,14 @@ namespace Insomnia.AvatarBot.API.Controllers
                 case "10":
                    return await GenerateFrame(msg, groupId);
                 case "хочу классную аватарку":
+                case "хочу классную аватарку!":
+                case "хочу классную аватарку.":
                 case "10 лет":
+                case "10 лет!":
+                case "10 лет.":
                 case "показать шаблоны":
+                case "показать шаблоны!":
+                case "показать шаблоны.":
                         return await SendFrames(msg.FromId.Value, groupId);
                 default:
 
